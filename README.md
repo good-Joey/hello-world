@@ -1,268 +1,229 @@
-# hello-world
-new repository
+# C++基础入门
 
-#定义 图书 类、教材 类、参考书 类、期刊 类
-class Book:
-    def __init__(self,num,name,author,publisher,time,prise,nature='图书'):
-        self.num = num
-        self.name = name
-        self.author = author
-        self.publisher = publisher
-        self.time = time 
-        self.prise = prise
-        self.nature = nature
-    def show(self,n):
-        if n==0:
-            print('以下为该%s的信息'%self.nature)
-            print('编号:',self.num)
-            print('书名:',self.name)
-            print('作者:',self.author)
-            print('出版社:',self.publisher)
-            print('出版时间:',self.time)
-            print('价格:',self.prise)
-        else :
-            print(self.num,end='    ')
-            print(self.name,end='    ')
-            print(self.author,end='    ')
-            print(self.publisher,end='    ')
-            print(self.time,end='    ')
-            print(self.prise,end='    ')
-            print(self.nature)
-class Classbook(Book):
-    def __init__(self,num,name,author,publisher,time,prise):
-        super().__init__(num,name,author,publisher,time,prise,nature='教材')
-class Referencebook(Book):
-    def __init__(self,num,name,author,publisher,time,prise):
-        super().__init__(num,name,author,publisher,time,prise,nature='参考书')
-class Journal(Book):
-    def __init__(self,num,name,author,publisher,time,prise):
-        super().__init__(num,name,author,publisher,time,prise,nature='期刊')
+## 1 C++初识
+
+### 1.1  第一个C++程序
+
+编写一个C++程序总共分为4个步骤
+
+* 创建项目
+* 创建文件
+* 编写代码
+* 运行程序
+
+#### 1.1.1 创建项目
+
+​	Visual Studio是我们用来编写C++程序的主要工具，我们先将它打开
+
+![1541383178746](assets/1541383178746.png)
 
 
-#用列表将实例对象储存
-total = []
 
-#键盘输入
-def keyboard_input():
-    
-    def imformation_input():
-        a = input('请输入该书的编号')
-        a = int(a)
-        n = 0
-        for i in total:
-            if i.num == a:
-                n = n+1
-        if n !=0:
-            print('该图书编号已存在')
-            return None
-        else :
-            b = input('请输入该书的名称')
-            c = input('请输入该书的作者')
-            d = input('请输入该书的出版社')
-            e = input('请输入该书的出版时间')
-            f = input('请输入该书的价格')
-            f = int(f)
-            return [a,b,c,d,e,f]
-    
-    while 1:
-        print('''请选择输入图书的种类''')
-        b = input('1.普通图书\n2.教材\n3.参考书\n4.期刊\n5.退出输入') 
-        b = int(b)
-        if b == 1:
-            l = imformation_input()
-            if l == None:
-                pass
-            else:
-                i = Book(l[0],l[1],l[2],l[3],l[4],l[5])
-                total.append(i)
-        elif  b ==2:
-            l = imformation_input()
-            if l == None:
-                pass
-            else:
-                i = Classbook(l[0],l[1],l[2],l[3],l[4],l[5])
-                total.append(i)
-        elif b==3:
-            l = imformation_input()
-            if l == None:
-                pass
-            else:
-                i = Referencebook(l[0],l[1],l[2],l[3],l[4],l[5])
-                total.append(i)
-        elif b==4:
-            l = imformation_input()
-            if l == None:
-                pass
-            else:
-                i = Journal(l[0],l[1],l[2],l[3],l[4],l[5])
-                total.append(i)
-        elif b==5:
-            print('键盘输入结束')
-            break
-        else :
-            print('输入错误，请重新输入')
+![1541384366413](assets/1541384366413.png)
 
-#文件输入
-def file_input():
-    n = 0
-    with open('图书信息.dat','r') as fp:
-        for line in fp:
-            l = line[:len(line)-1].split(',')
-            l[0] = int(l[0])
-            l[5] = int(l[5])
-            for j in range(len(total)):
-                if l[0] ==total[j].num:
-                    n =n+1
-            if n == 0:
-                if l[6] == '图书':
-                    i = Book(l[0],l[1],l[2],l[3],l[4],l[5])
-                elif l[6] == '教材':
-                    i = Classbook(l[0],l[1],l[2],l[3],l[4],l[5])
-                elif l[6] == '参考书':
-                    i = Referencebook(l[0],l[1],l[2],l[3],l[4],l[5])
-                elif l[6] == '期刊':
-                    i = Journal(l[0],l[1],l[2],l[3],l[4],l[5])
-                total.append(i)
-        print('文件读取成功')
+#### 1.1.2 创建文件
 
-#显示所有图书
-def print_total():
-    print('以下为所有图书的信息')
-    print("依次为编号,书名,作者,出版社,出版时间,价格,类别")
-    for j in range(len(total)):
-        total[j].show(n=1)
+右键源文件，选择添加->新建项
 
-#按编号查找图书
-def num_search():
-    a = input('请输入该书的编号')
-    a = int(a)
-    b = 0
-    for j in range(len(total)):
-        if total[j].num == a:
-            total[j].show(n=0)
-            b = b+1
-    if b == 0:
-        print('未找到该书')
+![1541383817248](assets/1541383817248.png)
 
-#按书名查找
-def name_search():
-    a = input('请输入该书的书名')
-    b = 0
-    for j in range(len(total)):
-        if total[j].name == a:
-            total[j].show(n=0)
-            b = b+1
-    if b == 0:
-        print('未找到该书')
+给C++文件起个名称，然后点击添加即可。
 
-#按编号删除
-def num_delete():
-    a = input('请输入所删除图书的编号')
-    a = int(a)
-    b = 0
-    for j in range(len(total)):
-        if total[j].num == a:
-            total.pop(j)
-            b = b+1
-    if b ==0:
-        print('未找到要删除的图书')
-
-#按书名删除
-def name_delete():
-    a = input('请输入所删除图书的名称')
-    b = 0
-    for j in range(len(total)):
-        if total[j].name == a:
-            total.pop(j)
-            b = b+1
-    if b ==0:
-        print('未找到要删除的图书')
+![1541384140042](assets/1541384140042.png)
 
 
-#存入文件
-def save_file():
-    with open('图书信息.dat','w') as fp:
-        for j in range(len(total)):
-            fp.write(total[j].num)
-            fp.write(',')
-            fp.write(total[j].name)
-            fp.write(',')
-            fp.write(total[j].author)
-            fp.write(',')
-            fp.write(total[j].publisher)
-            fp.write(',')
-            fp.write(total[j].time)
-            fp.write(',')
-            fp.write(total[j].prise)
-            fp.write(',')
-            fp.write(total[j].nature)
-            fp.write('\n')
-    print('存入文件成功')                
 
-#按编号升序排序
-def num_sort():
-    total.sort(key = lambda x:x.num)
+#### 1.1.3 编写代码
 
-#按价格降序排序
-def prise_sort():
-    total.sort(key= lambda x:x.prise,reverse = True)
+```c++
+#include<iostream>
+using namespace std;
 
-#编辑主界面
-print('这是图书管理系统')
-#根据选择进行相应操作
-while 1:
-    print('''
-1.输入图书信息
-2.显示所有图书
-3.查找相应图书
-4.添加图书
-5.删除图书
-6.保存所有图书信息到文件中
-7.对图书进行排序''')
-    a = input('请根据编号选择功能')
-    a = int(a)
+int main() {
 
-    if a == 1: 
-        b = input('请选择输入方式\n1.键盘输入\n2.文件输入\n')
-        b = int(b)
-        if b == 1:
-            keyboard_input()
-        else :
-            file_input()
+	cout << "Hello world" << endl;
 
-    elif a ==2:
-        print_total()
+	system("pause");
 
-    elif a ==3:
-        b = input('请选择查找方式\n1.按编号查找\n2.按书名查找\n')
-        b = int(b)
-        if b == 1:
-            num_search()
-        else :
-            name_search()
+	return 0;
+}
+```
 
-    elif a == 4:
-       keyboard_input()
+#### 1.1.4 运行程序
 
-    elif a == 5:
-        b = input('请选择删除图书的方式\n1.按编号删除\n2.按书名删除\n')
-        b = int(b)
-        if b == 1:
-            num_delete()
-        else :
-            name_delete()
+![1541384818688](assets/1541384818688.png)
 
-    elif a == 6:
-        save_file()
 
-    elif a == 7 :
-        b = input('请选择排序方式\n1.按编号升序排序\n2.按价格降序排序\n')
-        b =int(b)
-        if b ==1:
-            num_sort()
-        else :
-            prise_sort()
 
-    else :
-        print('输入错误，请重新输入')
 
+
+
+
+
+
+
+
+
+
+### 1.2 注释
+
+**作用**：在代码中加一些说明和解释，方便自己或其他程序员程序员阅读代码
+
+**两种格式**
+
+1. **单行注释**：`// 描述信息` 
+   - 通常放在一行代码的上方，或者一条语句的末尾，==对该行代码说明==
+2. **多行注释**： `/* 描述信息 */`
+   - 通常放在一段代码的上方，==对该段代码做整体说明==
+
+> 提示：编译器在编译代码时，会忽略注释的内容
+
+
+
+
+
+
+
+
+
+
+
+### 1.3 变量
+
+**作用**：给一段指定的内存空间起名，方便操作这段内存
+
+**语法**：`数据类型 变量名 = 初始值;`
+
+**示例：**
+
+```C++
+#include<iostream>
+using namespace std;
+
+int main() {
+
+	//变量的定义
+	//语法：数据类型  变量名 = 初始值
+
+	int a = 10;
+
+	cout << "a = " << a << endl;
+	
+	system("pause");
+
+	return 0;
+}
+```
+
+
+
+> 注意：C++在创建变量时，必须给变量一个初始值，否则会报错
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 1.4  常量
+
+**作用**：用于记录程序中不可更改的数据
+
+C++定义常量两种方式
+
+1. **\#define** 宏常量： `#define 常量名 常量值`
+   * ==通常在文件上方定义==，表示一个常量
+
+
+2. **const**修饰的变量 `const 数据类型 常量名 = 常量值`
+   * ==通常在变量定义前加关键字const==，修饰该变量为常量，不可修改
+
+
+
+**示例：**
+
+```C++
+//1、宏常量
+#define day 7
+
+int main() {
+
+	cout << "一周里总共有 " << day << " 天" << endl;
+	//day = 8;  //报错，宏常量不可以修改
+
+	//2、const修饰变量
+	const int month = 12;
+	cout << "一年里总共有 " << month << " 个月份" << endl;
+	//month = 24; //报错，常量是不可以修改的
+	
+	
+	system("pause");
+
+	return 0;
+}
+```
+
+
+
+
+
+
+
+
+
+
+### 1.5 关键字
+
+**作用：**关键字是C++中预先保留的单词（标识符）
+
+* **在定义变量或者常量时候，不要用关键字**
+
+
+
+C++关键字如下：
+
+| asm        | do           | if               | return      | typedef  |
+| ---------- | ------------ | ---------------- | ----------- | -------- |
+| auto       | double       | inline           | short       | typeid   |
+| bool       | dynamic_cast | int              | signed      | typename |
+| break      | else         | long             | sizeof      | union    |
+| case       | enum         | mutable          | static      | unsigned |
+| catch      | explicit     | namespace        | static_cast | using    |
+| char       | export       | new              | struct      | virtual  |
+| class      | extern       | operator         | switch      | void     |
+| const      | false        | private          | template    | volatile |
+| const_cast | float        | protected        | this        | wchar_t  |
+| continue   | for          | public           | throw       | while    |
+| default    | friend       | register         | true        |          |
+| delete     | goto         | reinterpret_cast | try         |          |
+
+`提示：在给变量或者常量起名称时候，不要用C++得关键字，否则会产生歧义。`
+
+
+
+
+
+
+
+
+
+
+
+### 1.6 标识符命名规则
+
+**作用**：C++规定给标识符（变量、常量）命名时，有一套自己的规则
+
+* 标识符不能是关键字
+* 标识符只能由字母、数字、下划线组成
+* 第一个字符必须为字母或下划线
+* 标识符中字母区分大小写
+
+> 建议：给标识符命名时，争取做到见名知意的效果，方便自己和他人的阅读
